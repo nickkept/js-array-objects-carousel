@@ -47,14 +47,14 @@ for (let i = 0; i < images.length; i++) {
     imgEl.classList.add("img-fluid", "da-js");
     const title = images[i].title;
     titleEl = document.createElement(`h5`)
-    titleEl.classList.add(`bottom-right-title`, `text-white` , `d-none`)
+    titleEl.classList.add(`bottom-right-title`, `text-white` , `d-none` ,`random-class-title`)
     const text = images[i].text;
     textEl = document.createElement(`div`)
-    textEl.classList.add(`bottom-right-text`, `text-white` , `d-none`)
+    textEl.classList.add(`bottom-right-text`, `text-white` , `d-none`,`random-class-text`)
     if (i === currentImgIndex && i === currentTitleIndex && i === currentTextIndex) {
         imgEl.classList.add("active");
-        titleEl.classList.remove(`d-none`);
-        textEl.classList.remove(`d-none`);
+        titleEl.classList.remove(`d-none`, `random-class-title`);
+        textEl.classList.remove(`d-none`, `random-class-text`);
         
     }
     //  if (i === currentTitleIndex) {
@@ -81,16 +81,31 @@ btnNext.addEventListener("click", function () {
     const newActiveEl = imgElements[currentImgIndex];
     newActiveEl.classList.add("active");
     
-    // currentTitleIndex++;
-    // const lastAvailableTitleIndex = images.length - 1;
-    // if (currentTitleIndex > lastAvailableIndex) {
-    //     currentTitleIndex = 0;
-    // }
-    // const oldActiveTitleEl = mainImgContainer.querySelector(".active");
-    // oldActiveEl.classList.remove("active");
-    // const imgElements = mainImgContainer.querySelectorAll("img");
-    // const newActiveEl = imgElements[currentImgIndex];
-    // newActiveEl.classList.add("active");
+
+
+    currentTitleIndex++;
+    const lastAvailableTitleIndex = images.length - 1;
+    if (currentTitleIndex > lastAvailableTitleIndex) {
+        currentTitleIndex = 0;
+    }
+    const oldActiveTitleEl = mainImgContainer.querySelector(`.random-class-title`);
+    oldActiveTitleEl.classList.add("d-none");
+    const titleElements = mainImgContainer.querySelectorAll("h5");
+    const newActiveTitleEl = titleElements[currentImgIndex];
+    newActiveTitleEl.classList.remove(`d-none`, `random-class-title`);
+    
+
+
+    currentTextIndex++;
+    const lastAvailableTextIndex = images.length - 1;
+    if (currentTextIndex > lastAvailableTextIndex) {
+        currentTextIndex = 0;
+    }
+    const oldActiveTextEl = mainImgContainer.querySelector(".random-class-text");
+    oldActiveTextEl.classList.add("d-none");
+    const TextElements = mainImgContainer.querySelectorAll("div");
+    const newActiveTextEl = TextElements[currentImgIndex];
+    newActiveTextEl.classList.remove(`d-none`, `random-class-text`);
 });
 btnPrev.addEventListener("click", function () {
     currentImgIndex--;
@@ -102,4 +117,27 @@ btnPrev.addEventListener("click", function () {
     const imgElements = mainImgContainer.querySelectorAll("img");
     const newActiveEl = imgElements[currentImgIndex];
     newActiveEl.classList.add("active");
+
+
+
+    currentTitleIndex--;
+    if (currentTitleIndex < 0) {
+        currentTitleIndex = 4;
+    }
+    const oldActiveTitleEl = mainImgContainer.querySelector(".text-white");
+    oldActiveTitleEl.classList.add("d-none");
+    const titleElements = mainImgContainer.querySelectorAll("h5");
+    const newActiveTitleEl = titleElements[currentImgIndex];
+    newActiveTitleEl.classList.remove("d-none");
+    
+    
+    currentTextIndex--;
+    if (currentTextIndex < 0) {
+        currentTextIndex = 4;
+    }
+    const oldActiveTextEl = mainImgContainer.querySelector(".bottom-right-text");
+    oldActiveTextEl.classList.add("d-none");
+    const TextElements = mainImgContainer.querySelectorAll("div");
+    const newActiveTextEl = TextElements[currentImgIndex];
+    newActiveTextEl.classList.remove("d-none");
 }); 
